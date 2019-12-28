@@ -22,7 +22,7 @@ Add dependency to `cargo.toml`:
  
 ```toml
 [dependencies]
-hiccup = "0.1.4"
+hiccup = "0.1.5"
 ```
 
 Code example with `hiccup!` macro:
