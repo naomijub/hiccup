@@ -9,7 +9,7 @@
 /// 1. `tag` as the first element.
 /// 2. Optional attribute inside the tag should follow the tag name as `{attribute1=>"value1 vlaue2 ... valuen", attr=>"value"}`. Also, the attributes should be inside `{...}` and separate each key value pair by `,`.
 /// The element should be written as `key=>"value"`, where key is a symbol, followed by an arrow (`=>`), and then the value as a string `"value"`.
-/// 3. After the tag name or the attributes `{...}` tou should include `[...]` that can have other tags, such as `p["text"]` or regular string values.
+/// 3. After (Optional) the tag name or the attributes `{...}` tou should include `[...]` that can have other tags, such as `p["text"]` or regular string values.
 /// 
 /// ### Differences between Clojure and Rust Hiccup: 
 /// * [Clojure](https://github.com/weavejester/hiccup/wiki/Syntax): `[:a {:href "http://github.com"} "GitHub"]`
@@ -26,16 +26,16 @@
 ///
 ///     let _ = hiccup!(&mut html,
 ///         html[
-///             head[meta{name=>"author", content=>"Julia Naomi"}[]
+///             head[meta{name=>"author", content=>"Julia Naomi"}
 ///                 title["Hiccup guide"]]
 ///             body{class=>"amazing hiccup guide"}[
-///                 h1{font=>"bold"}["Hiccup is the best!"]
+///                 h1{font=>"bold", color=>"red"}["Hiccup is the best!"]
 ///                 p["please lookup clojure's hiccup for better ideas on this macro"]]
 ///         ]);
 ///
-///     assert_eq!(html,"<html><head><meta name=\"author\" content=\"Julia Naomi\"></meta>\
+///     assert_eq!(html,"<html><head><meta name=\"author\" content=\"Julia Naomi\"/>\
 ///     <title>Hiccup guide</title></head><body class=\"amazing hiccup guide\">\
-///     <h1 font=\"bold\">Hiccup is the best!</h1>\
+///     <h1 font=\"bold\" color=\"red\">Hiccup is the best!</h1>\
 ///     <p>please lookup clojure\'s hiccup for better ideas on this macro</p></body></html>");
 /// }
 /// ```
@@ -61,6 +61,18 @@ macro_rules! hiccup {
 
         hiccup!($w, $($inner)*);
         let _ = write!($w, "</{}>", stringify!($tag));
+        hiccup!($w, $($rest)*);
+    }};
+
+    ($w:expr, $tag:ident {$($key:expr => $value:expr),*} $($rest:tt)*) => {{
+        use std::fmt::Write;
+        
+        let _ = write!($w, "<{}", stringify!($tag));
+        $(
+            let _ = write!($w, " {}=", stringify!($key));
+            let _ = write!($w, "{}", stringify!($value));
+        )*
+        let _ = write!($w, "/>");
         hiccup!($w, $($rest)*);
     }};
 
