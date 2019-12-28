@@ -1,6 +1,21 @@
-/// `hiccup!`: 
+/// # `hiccup!`: 
 /// * The main objective of this lib is to prevent unclosed html tags.
+/// This macro is inspired by Clojures [hiccup](https://github.com/weavejester/hiccup)
 /// 
+/// ## Basic usage: 
+/// 
+/// The macro `hiccup! receives a mutable string as the first argument and mutates the string to emit the HTML.
+/// The order of the elemnts is: 
+/// 1. `tag` as the first element.
+/// 2. Optional attribute inside the tag should follow the tag name as `{attribute1=>"value1 vlaue2 ... valuen", attr=>"value"}`. Also, the attributes should be inside `{...}` and separate each key value pair by `,`.
+/// The element should be written as `key=>"value"`, where key is a symbol, followed by an arrow (`=>`), and then the value as a string `"value"`.
+/// 3. After the tag name or the attributes `{...}` tou should include `[...]` that can have other tags, such as `p["text"]` or regular string values.
+/// 
+/// ### Differences between Clojure and Rust Hiccup: 
+/// * [Clojure](https://github.com/weavejester/hiccup/wiki/Syntax): `[:a {:href "http://github.com"} "GitHub"]`
+/// * Rust: `a{href=>"http://github.com"}["GitHub"]`
+/// 
+/// ## Example
 /// ```rust
 /// extern crate hiccup;
 ///
