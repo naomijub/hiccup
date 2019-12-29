@@ -6,9 +6,9 @@ A Clojure's [Hiccup](https://github.com/weavejester/hiccup) inspired macro. At t
 ## Basic elements: 
 
 The macro `hiccup! receives a mutable string as the first argument and mutates the string to emit the HTML.
-The order of the elemnts is: 
+The order of the elements is: 
 1. `tag` as the first element.
-2. Optional attribute inside the tag should follow the tag name as `{attribute1=>"value1 vlaue2 ... valuen", attr=>"value"}`. Also, the attributes should be inside `{...}` and separate each key value pair by `,`.
+2. Optional attribute inside the tag should follow the tag name as `{attribute1=>"value1 value2 ... valuen", attr=>"value"}`. Also, the attributes should be inside `{...}` and separate each key value pair by `,`.
 The element should be written as `key=>"value"`, where key is a symbol, followed by an arrow (`=>`), and then the value as a string `"value"`.
 3. After (Optional) the tag name or the attributes `{...}` tou should include `[...]` that can have other tags, such as `p["text"]` or regular string values.
 
