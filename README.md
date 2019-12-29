@@ -50,4 +50,4 @@ fn main() {
 ```
 
 ## Contribution
-Add the feature you included in the macro as the name of the PR **with tests*
+Add the feature you included in the macro as the name of the PR **with tests**
