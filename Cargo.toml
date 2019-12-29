@@ -1,6 +1,6 @@
 [package]
 name = "hiccup"
-version = "0.2.3"
+version = "0.2.4"
 authors = ["Julia Naomi <jnboeira@outlook.com>"]
 description = "Rust HTML templating based on Clojure's Hiccup"
 documentation = "https://docs.rs/hiccup/"

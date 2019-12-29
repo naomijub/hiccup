@@ -80,6 +80,10 @@
 ///     <div>my str2 my str3</div><p>bye</p></div></body></html>");
 /// }
 /// ```
+/// ## FAQs
+/// 1. Is it possible tu use this lib as an XML templating?
+/// > Yes, I added a more generic XML case to the tests recently
+/// 
 /// 
 #[macro_export]
 macro_rules! hiccup {

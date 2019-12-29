@@ -23,7 +23,7 @@ Add dependency to `Cargo.toml`:
  
 ```toml
 [dependencies]
-hiccup = "0.2.3"
+hiccup = "0.2.4"
 ```
 
 Code example with `hiccup!` macro:
@@ -82,6 +82,11 @@ assert_eq!(html_outer,"<html><body class=\"amazing hiccup guide\">\
 <div><div hello=\"world\"><div><div hello=\"inner world\">inner my str</div></div></div>\
 <div>my str2 my str3</div><p>bye</p></div></body></html>");
 ```
+
+## FAQs
+
+1. Is it possible tu use this lib as an XML templating?
+> Yes, I added a more generic XML case to the tests recently
 
 ## Contribution
 Add the feature you included in the macro as the name of the PR **with tests**
