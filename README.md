@@ -23,7 +23,7 @@ Add dependency to `Cargo.toml`:
  
 ```toml
 [dependencies]
-hiccup = "0.2.4"
+hiccup = "0.2.5"
 ```
 
 Code example with `hiccup!` macro:
@@ -87,6 +87,27 @@ assert_eq!(html_outer,"<html><body class=\"amazing hiccup guide\">\
 
 1. Is it possible tu use this lib as an XML templating?
 > Yes, I added a more generic XML case to the tests recently
+
+```rust
+fn main() {
+    let mut out = String::new();
+
+    let _ = hiccup!(&mut out,
+        xml{metas=>"I forgot them all", version=>"any version"}[
+            family[name{name=>"Rubiechiov", origin=>"Kazakhstan"}]
+            members{class=>"close family"}[
+                member{age=>"oldest", color=>"yellow"}["some name"]
+                member{age=>"mid-age", color=>"yellow"}["some other name"]
+                member{age=>"yougest", color=>"brown"}["Julia"]]
+        ]);
+
+    assert_eq!(out,"<xml metas=\"I forgot them all\" version=\"any version\"><family>\
+    <name name=\"Rubiechiov\" origin=\"Kazakhstan\"/></family><members class=\"close family\">\
+    <member age=\"oldest\" color=\"yellow\">some name</member>\
+    <member age=\"mid-age\" color=\"yellow\">some other name</member>\
+    <member age=\"yougest\" color=\"brown\">Julia</member></members></xml>");
+}
+```
 
 ## Contribution
 Add the feature you included in the macro as the name of the PR **with tests**

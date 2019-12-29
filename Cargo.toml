@@ -1,12 +1,12 @@
 [package]
 name = "hiccup"
-version = "0.2.4"
+version = "0.2.5"
 authors = ["Julia Naomi <jnboeira@outlook.com>"]
 description = "Rust HTML templating based on Clojure's Hiccup"
 documentation = "https://docs.rs/hiccup/"
 repository = "https://github.com/naomijub/hiccup"
 readme = "README.md"
-keywords = ["HTML", "html", "templating", "Hiccup"]
+keywords = ["html","xml", "templating", "Hiccup"]
 license = "GPL-3.0-or-later"
 edition = "2018"
 
