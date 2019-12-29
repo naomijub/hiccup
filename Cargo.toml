@@ -1,8 +1,8 @@
 [package]
 name = "hiccup"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Julia Naomi <jnboeira@outlook.com>"]
-description = "https://docs.rs/hiccup/0.1.5/hiccup/macro.hiccup.html"
+description = "https://docs.rs/hiccup/"
 repository = "https://github.com/naomijub/hiccup"
 keywords = ["HTML", "html", "templating", "Hiccup"]
 license = "GPL-3.0-or-later"
