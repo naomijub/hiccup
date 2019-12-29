@@ -17,8 +17,6 @@
 /// 
 /// ## Example
 /// ```rust
-/// extern crate hiccup;
-///
 /// use hiccup::hiccup;
 ///
 /// fn main() {

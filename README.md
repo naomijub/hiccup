@@ -28,8 +28,6 @@ hiccup = "0.1.5"
 Code example with `hiccup!` macro:
 
 ```rust
-extern crate hiccup;
-
 use hiccup::hiccup;
 
 fn main() {
