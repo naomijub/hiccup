@@ -18,7 +18,7 @@ The element should be written as `key=>"value"`, where key is a symbol, followed
 
 ## Usage
 
-Add dependency to `cargo.toml`:
+Add dependency to `Cargo.toml`:
  
 ```toml
 [dependencies]
