@@ -1,8 +1,8 @@
 [package]
 name = "hiccup"
-version = "0.1.6"
+version = "0.2.0"
 authors = ["Julia Naomi <jnboeira@outlook.com>"]
-description = "Rust HTML macro inspired by Clojure's Hiccup"
+description = "https://docs.rs/hiccup/0.1.5/hiccup/macro.hiccup.html"
 repository = "https://github.com/naomijub/hiccup"
 keywords = ["HTML", "html", "templating", "Hiccup"]
 license = "GPL-3.0-or-later"
