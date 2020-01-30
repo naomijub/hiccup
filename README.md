@@ -1,4 +1,5 @@
-# Hiccup
+# Hiccup 
+[![Build Status](https://travis-ci.org/naomijub/hiccup.svg?branch=master)](https://travis-ci.org/naomijub/hiccup)
 
 A Clojure's [Hiccup](https://github.com/weavejester/hiccup) inspired macro. At the moment **support for inline code execution is not guaranteed**.
 **The main objective of this lib is to prevent unclosed html tags.**
