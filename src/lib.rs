@@ -1,27 +1,27 @@
-/// # `hiccup!`: 
+/// # `hiccup!`:
 /// * The main objective of this lib is to prevent unclosed html tags.
 /// This macro is inspired by Clojures [hiccup](https://github.com/weavejester/hiccup)
-/// 
-/// ## Basic usage: 
-/// 
+///
+/// ## Basic usage:
+///
 /// The macro `hiccup! receives a mutable string as the first argument and mutates the string to emit the HTML.
-/// The order of the elements is: 
+/// The order of the elements is:
 /// 1. `tag` as the first element.
 /// 2. Optional attribute inside the tag should follow the tag name as `{attribute1=>"value1 value2 ... valuen", attr=>"value"}`. Also, the attributes should be inside `{...}` and separate each key value pair by `,`.
 /// The element should be written as `key=>"value"`, where key is a symbol, followed by an arrow (`=>`), and then the value as a string `"value"`.
 /// 3. After (Optional) the tag name or the attributes `{...}` you could include `[...]` that can have other tags, such as `p["text"]` or regular string values.
-/// 4. Inside the `[...]` you also can substitute your string for some simple rust code inside a `(...)`. This can bem something like `p[format!("{:?}", 3 + 4)]` or `div[(x)]` where x was defined in the outside. 
-/// 
-/// ### Differences between Clojure and Rust Hiccup: 
+/// 4. Inside the `[...]` you also can substitute your string for some simple rust code inside a `(...)`. This can bem something like `p[format!("{:?}", 3 + 4)]` or `div[(x)]` where x was defined in the outside.
+///
+/// ### Differences between Clojure and Rust Hiccup:
 /// * [Clojure](https://github.com/weavejester/hiccup/wiki/Syntax): `[:a {:href "http://github.com"} "GitHub"]`
 /// * Rust: `a{href=>"http://github.com"}["GitHub"]`
-/// 
-/// ### Syntax with code inside: 
+///
+/// ### Syntax with code inside:
 /// * `a{href=>"http://github.com"}[(format!("{:?}", 3 + 5))]`
 /// * `p[(x)]`, where `x` can be another `html` or simply a value;
-/// 
+///
 /// ## Example
-/// 
+///
 /// ### Basic syntax
 /// ```rust
 /// use hiccup::hiccup;
@@ -44,7 +44,7 @@
 ///     <p>please lookup clojure\'s hiccup for better ideas on this macro</p></body></html>");
 /// }
 /// ```
-/// 
+///
 /// ### With remote code execution
 /// ```rust
 /// use hiccup::hiccup;
@@ -83,7 +83,7 @@
 /// ## FAQs
 /// 1. Is it possible tu use this lib as an XML templating?
 /// > Yes, I added a more generic XML case to the tests recently
-/// 
+///
 /// ```rust
 /// use hiccup::hiccup;
 ///
@@ -106,7 +106,7 @@
 ///     <member age=\"yougest\" color=\"brown\">Julia</member></members></xml>");
 /// }
 /// ```
-/// 
+///
 #[macro_export]
 macro_rules! hiccup {
     ($w:expr, ) => (());
@@ -118,7 +118,7 @@ macro_rules! hiccup {
 
     ($w:expr, $tag:ident {$($key:expr => $value:expr),*}[($($code:block)*) $($inner:tt)*] $($rest:tt)*) => {{
         use std::fmt::Write;
-        
+
         let _ = write!($w, "<{}", stringify!($tag));
         $(
             let _ = write!($w, " {}=", stringify!($key));
@@ -133,7 +133,7 @@ macro_rules! hiccup {
 
     ($w:expr, $tag:ident {$($key:expr => $value:expr),*}[$($inner:tt)*] $($rest:tt)*) => {{
         use std::fmt::Write;
-        
+
         let _ = write!($w, "<{}", stringify!($tag));
         $(
             let _ = write!($w, " {}=", stringify!($key));
@@ -148,7 +148,7 @@ macro_rules! hiccup {
 
     ($w:expr, $tag:ident [($($code:block)*) $($inner:tt)*] $($rest:tt)*) => {{
         use std::fmt::Write;
-        
+
         let _ = write!($w, "<{}>", stringify!($tag));
         $($code)*
         hiccup!($w, $($inner)*);
@@ -158,7 +158,7 @@ macro_rules! hiccup {
 
     ($w:expr, $tag:ident {$($key:expr => $value:expr),*} $($rest:tt)*) => {{
         use std::fmt::Write;
-        
+
         let _ = write!($w, "<{}", stringify!($tag));
         $(
             let _ = write!($w, " {}=", stringify!($key));
@@ -170,7 +170,7 @@ macro_rules! hiccup {
 
     ($w:expr, $tag:ident [$($inner:tt)*] $($rest:tt)*) => {{
         use std::fmt::Write;
-        
+
         let _ = write!($w, "<{}>", stringify!($tag));
         hiccup!($w, $($inner)*);
         let _ = write!($w, "</{}>", stringify!($tag));
@@ -179,7 +179,7 @@ macro_rules! hiccup {
 
     ($w:expr, $tag:ident [($($code:block)*)] $($rest:tt)*) => {{
         use std::fmt::Write;
-        
+
         let _ = write!($w, "<{}>", stringify!($tag));
         $($code)*
         let _ = write!($w, "</{}>", stringify!($tag));
@@ -194,13 +194,16 @@ mod tests {
         let mut out = String::new();
 
         let _ = hiccup!(&mut out,
-            html[
-                head[title["Hiccup guide"]]
-                body[h1["Hiccup is the best!"]]
-            ]);
+        html[
+            head[title["Hiccup guide"]]
+            body[h1["Hiccup is the best!"]]
+        ]);
 
-            assert_eq!(out, "<html><head><title>Hiccup guide</title></head>\
-            <body><h1>Hiccup is the best!</h1></body></html>");
+        assert_eq!(
+            out,
+            "<html><head><title>Hiccup guide</title></head>\
+             <body><h1>Hiccup is the best!</h1></body></html>"
+        );
     }
 
     #[test]
@@ -208,12 +211,15 @@ mod tests {
         let mut out = String::new();
 
         let _ = hiccup!(&mut out,
-            html[
-                head[title["Hiccup guide"]]
-                body[h1{class=>"value", c=>"v"}["Hiccup is the best!"]]
-            ]);
+        html[
+            head[title["Hiccup guide"]]
+            body[h1{class=>"value", c=>"v"}["Hiccup is the best!"]]
+        ]);
 
-        assert_eq!(out, "<html><head><title>Hiccup guide</title></head><body>\
-        <h1 class=\"value\" c=\"v\">Hiccup is the best!</h1></body></html>");
+        assert_eq!(
+            out,
+            "<html><head><title>Hiccup guide</title></head><body>\
+             <h1 class=\"value\" c=\"v\">Hiccup is the best!</h1></body></html>"
+        );
     }
 }
